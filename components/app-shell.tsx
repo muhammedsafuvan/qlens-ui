@@ -18,43 +18,46 @@ import {
   X,
 } from "lucide-react";
 
-const navigation = [
+type NavigationItem = {
+  label: string;
+  href: string;
+  icon: typeof Activity;
+};
+
+const navigationItems: NavigationItem[] = [
   {
     label: "Overview",
-    href: "/",
+    href: "/app",
     icon: LayoutDashboard,
   },
   {
     label: "Jobs",
-    href: "/jobs",
+    href: "/app/jobs",
     icon: List,
   },
   {
     label: "Integrations",
-    href: "/integrations",
+    href: "/app/integrations",
     icon: Plug,
   },
-];
-
-const workspaceNavigation = [
   {
     label: "API Keys",
-    href: "/api-keys",
+    href: "/app/api-keys",
     icon: KeyRound,
   },
   {
     label: "Settings",
-    href: "/settings",
+    href: "/app/settings",
     icon: Settings,
   },
 ];
 
 const pageTitles: Record<string, string> = {
-  "/": "Overview",
-  "/jobs": "Jobs",
-  "/integrations": "Integrations",
-  "/api-keys": "API Keys",
-  "/settings": "Settings",
+  "/app": "Overview",
+  "/app/jobs": "Jobs",
+  "/app/integrations": "Integrations",
+  "/app/api-keys": "API Keys",
+  "/app/settings": "Settings",
 };
 
 interface AppShellProps {
@@ -69,12 +72,13 @@ export function AppShell({ children }: AppShellProps) {
 
   const pageTitle = pageTitles[pathname] ?? "QLens";
 
-  function renderNavigation(
-    items: typeof navigation | typeof workspaceNavigation,
-  ) {
+  function renderNavigation(items: NavigationItem[]) {
     return items.map((item) => {
       const Icon = item.icon;
-      const active = pathname === item.href;
+
+      const active =
+        pathname === item.href ||
+        (item.href !== "/app" && pathname.startsWith(`${item.href}/`));
 
       return (
         <Link
@@ -108,6 +112,7 @@ export function AppShell({ children }: AppShellProps) {
         Skip to content
       </a>
 
+      {/* Mobile navigation overlay */}
       {mobileOpen && (
         <button
           type="button"
@@ -117,6 +122,7 @@ export function AppShell({ children }: AppShellProps) {
         />
       )}
 
+      {/* Sidebar */}
       <aside
         className={`fixed inset-y-0 left-0 z-50 flex w-[248px] flex-col border-r border-[#EBE9EF] bg-white transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] lg:translate-x-0 ${
           mobileOpen ? "translate-x-0" : "-translate-x-full"
@@ -125,7 +131,7 @@ export function AppShell({ children }: AppShellProps) {
         {/* Brand */}
         <div className="flex h-[68px] items-center justify-between px-5">
           <Link
-            href="/"
+            href="/app"
             className="flex items-center gap-2.5"
             onClick={() => setMobileOpen(false)}
           >
@@ -142,6 +148,7 @@ export function AppShell({ children }: AppShellProps) {
             </span>
           </Link>
 
+          {/* Mobile close button */}
           <button
             type="button"
             aria-label="Close mobile navigation"
@@ -151,6 +158,7 @@ export function AppShell({ children }: AppShellProps) {
             <X size={18} />
           </button>
 
+          {/* Desktop collapse button */}
           <button
             type="button"
             aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
@@ -169,7 +177,9 @@ export function AppShell({ children }: AppShellProps) {
         <div className="px-3 pb-5">
           <div
             className={`flex items-center gap-3 rounded-xl border border-[#EBE9EF] bg-[#FCFBFD] p-3 ${
-              collapsed ? "lg:justify-center lg:border-transparent lg:bg-transparent lg:px-0" : ""
+              collapsed
+                ? "lg:justify-center lg:border-transparent lg:bg-transparent lg:px-0"
+                : ""
             }`}
           >
             <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-[#F0EAFB] text-[#7546D8]">
@@ -185,7 +195,9 @@ export function AppShell({ children }: AppShellProps) {
 
             <ChevronDown
               size={16}
-              className={`shrink-0 text-[#92909B] ${collapsed ? "lg:hidden" : ""}`}
+              className={`shrink-0 text-[#92909B] ${
+                collapsed ? "lg:hidden" : ""
+              }`}
             />
           </div>
         </div>
@@ -204,19 +216,7 @@ export function AppShell({ children }: AppShellProps) {
               Workspace
             </p>
 
-            {renderNavigation(navigation)}
-          </div>
-
-          <div className="space-y-1">
-            <p
-              className={`px-3 pb-2 text-xs font-semibold uppercase tracking-wider text-[#A09DA8] ${
-                collapsed ? "lg:hidden" : ""
-              }`}
-            >
-              Manage
-            </p>
-
-            {renderNavigation(workspaceNavigation)}
+            {renderNavigation(navigationItems)}
           </div>
         </nav>
 
@@ -231,9 +231,7 @@ export function AppShell({ children }: AppShellProps) {
               <p className="text-sm font-medium text-[#292532]">
                 Personal account
               </p>
-              <p className="text-xs text-[#92909B]">
-                Workspace owner
-              </p>
+              <p className="text-xs text-[#92909B]">Workspace owner</p>
             </div>
           </div>
         </div>
@@ -281,6 +279,7 @@ export function AppShell({ children }: AppShellProps) {
           </div>
         </header>
 
+        {/* Page content */}
         <main
           id="main-content"
           className="mx-auto w-full max-w-[1600px] p-5 lg:p-8"
@@ -291,3 +290,4 @@ export function AppShell({ children }: AppShellProps) {
     </div>
   );
 }
+

@@ -128,3 +128,23 @@
     @apply font-sans;
   }
 }
+
+.tagline-line {
+  text-wrap: balance;
+}
+
+.tagline-word {
+  opacity: 0.3;
+  transition: opacity 500ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.tagline-word[data-visible="true"] {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tagline-word {
+    opacity: 1;
+    transition: none;
+  }
+}
