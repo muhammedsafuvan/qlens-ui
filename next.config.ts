@@ -1,8 +1,9 @@
-
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: "standalone",
+  // Use standalone output for Docker, but let Netlify
+  // use its own Next.js runtime.
+  ...(process.env.NETLIFY ? {} : { output: "standalone" }),
 
   experimental: {
     agentFeedback: true,
