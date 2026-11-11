@@ -1,7 +1,7 @@
 
 import Link from "next/link";
 import { Activity, ArrowRight, Plug } from "lucide-react";
-
+export const instant = false;
 export default function OverviewPage() {
   return (
     <div className="space-y-8">
