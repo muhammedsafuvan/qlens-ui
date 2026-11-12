@@ -1,0 +1,63 @@
+# Celery Integration
+
+QueueLens integrates with your existing Celery application through Celery signals.
+
+You do not need to rewrite your tasks or change how you enqueue jobs.
+
+## Basic integration
+
+```python
+from celery import Celery
+from queuelens import QueueLens
+
+celery_app = Celery("my_app")
+
+queuelens = QueueLens()
+queuelens.instrument(celery_app)
+```
+
+## Existing Celery application
+
+If you already have a Celery application, instrument that application instead of creating another one.
+
+For example:
+
+```python
+from app.celery import celery_app
+from queuelens import QueueLens
+
+queuelens = QueueLens()
+queuelens.instrument(celery_app)
+```
+
+## Example task
+
+```python
+@celery_app.task
+def send_notification(user_id: int):
+    # Your existing business logic
+    print(f"Sending notification to {user_id}")
+```
+
+Execute it normally:
+
+```python
+send_notification.delay(123)
+```
+
+QueueLens captures supported lifecycle events automatically.
+
+## Multiple workers
+
+Install and configure the SDK in every Celery worker process that should report events.
+
+Make sure all workers have access to the appropriate API key.
+
+## What changes in your application?
+
+Your existing task execution workflow does not change.
+
+- You continue using `.delay()` and `.apply_async()`.
+- Your broker remains unchanged.
+- Your workers remain unchanged.
+- QueueLens collects observability events independently.

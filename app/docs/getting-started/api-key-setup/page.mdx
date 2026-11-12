@@ -1,0 +1,45 @@
+# API Key Setup
+
+QueueLens uses workspace-scoped API keys to authenticate SDK event ingestion.
+
+Each API key is associated with a workspace and allows your instrumented application to send monitoring events to that workspace.
+
+## Creating an API key
+
+1. Sign in to QueueLens.
+2. Open your workspace.
+3. Navigate to API Keys.
+4. Click **Create API Key**.
+5. Enter a descriptive name.
+6. Generate and copy your key.
+
+## Configure your environment
+
+Store your API key in an environment variable:
+
+```env
+QUEUELENS_API_KEY=ql_live_your_generated_key
+```
+
+For local development, use a test key if your workspace provides one.
+
+## Security recommendations
+
+- Never expose API keys in frontend code.
+- Never commit API keys to Git.
+- Do not share API keys publicly.
+- Store production keys in your deployment platform's secret manager.
+- Revoke keys immediately if they are compromised.
+- Create separate keys for different applications or environments when appropriate.
+
+## Revoking an API key
+
+If a key is compromised or no longer needed:
+
+1. Open API Keys in your dashboard.
+2. Locate the key.
+3. Revoke it.
+
+A revoked key can no longer authenticate SDK event ingestion.
+
+**Important:** Generating a new key does not automatically update your running applications. Update their environment configuration before restarting the workers.

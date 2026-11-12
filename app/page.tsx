@@ -39,7 +39,12 @@ export default function HomePage() {
         </Link>
 
         <span className="text-sm text-muted-foreground">
-          Observability for Celery
+          <Link
+            href="/docs"
+            className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+            >
+            Docs
+          </Link>
         </span>
       </header>
 

@@ -1,0 +1,36 @@
+# Welcome to QueueLens
+
+## Background job monitoring made simple.
+
+QueueLens is a developer-focused observability platform for monitoring Celery background tasks.
+
+It helps you understand what happens to your background jobs without manually instrumenting every task or building your own monitoring infrastructure.
+
+With QueueLens, you can:
+
+- Monitor Celery task execution.
+- Track task lifecycle events.
+- Identify failed tasks and understand why they failed.
+- Inspect exception types, error messages, and tracebacks.
+- Monitor retries and execution status.
+- View your background job activity through a centralized dashboard.
+
+## How it works
+
+QueueLens integrates directly with your existing Celery application through a lightweight Python SDK.
+
+The SDK listens to Celery lifecycle signals, collects relevant execution information, and securely sends events to the QueueLens platform.
+
+Your existing Celery application, broker, and workers remain under your control. QueueLens does not execute or manage your background jobs.
+
+## Get started
+
+1. Create your QueueLens account.
+2. Sign in using Google.
+3. Create an API key from your dashboard.
+4. Install the QueueLens Python SDK.
+5. Configure your API key.
+6. Instrument your Celery application.
+7. Start monitoring your jobs.
+
+**Your existing Celery workflow stays the same. QueueLens adds observability on top of it.**

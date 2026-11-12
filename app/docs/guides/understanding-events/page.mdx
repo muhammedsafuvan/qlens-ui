@@ -1,0 +1,55 @@
+# Understanding Events
+
+QueueLens builds a timeline of your Celery tasks using lifecycle events captured by the SDK.
+
+## Received
+
+Indicates that a Celery worker has received a task.
+
+## Started
+
+Indicates that execution of the task has started.
+
+## Succeeded
+
+Indicates that the task completed successfully.
+
+## Failed
+
+Indicates that task execution raised an exception.
+
+When available, QueueLens captures:
+
+- Exception type.
+- Exception message.
+- Traceback.
+
+These details help you understand why a task failed without manually inspecting worker logs.
+
+## Retried
+
+Indicates that Celery scheduled another attempt to execute a task.
+
+Retries are useful for transient failures such as temporary network errors or unavailable external services.
+
+## Event timeline
+
+A typical successful task may look like:
+
+```text
+Received → Started → Succeeded
+```
+
+A failed task may look like:
+
+```text
+Received → Started → Failed
+```
+
+A retried task may look like:
+
+```text
+Received → Started → Failed → Retried
+```
+
+The actual sequence depends on Celery execution and retry behavior.

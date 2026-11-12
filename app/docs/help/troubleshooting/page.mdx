@@ -1,0 +1,49 @@
+# Troubleshooting
+
+Common issues when integrating QueueLens with Celery.
+
+## Jobs are not appearing in the dashboard
+
+Check the following:
+
+1. Verify that the QueueLens SDK is installed.
+2. Confirm that `QUEUELENS_API_KEY` is configured.
+3. Ensure that your Celery application is instrumented.
+4. Restart your Celery workers after configuration changes.
+5. Confirm that the worker has outbound network access.
+6. Check your worker logs for SDK delivery errors.
+
+## API key authentication failed
+
+Verify that:
+
+- The API key is copied correctly.
+- The key belongs to the intended workspace.
+- The key has not been revoked.
+- Your environment variable is loaded correctly.
+
+## Failed tasks do not show diagnostic information
+
+Confirm that:
+
+- The SDK instrumentation is active.
+- The worker is running the instrumented Celery application.
+- The failure event was successfully delivered.
+- The exception occurred within the task execution lifecycle captured by the SDK.
+
+## Events appear with a delay
+
+QueueLens uses buffered event delivery.
+
+Events may take some time to appear depending on batching, delivery, and network conditions.
+
+## Still experiencing problems?
+
+Contact the QueueLens support team with:
+
+- Your SDK version.
+- Python and Celery versions.
+- Relevant worker logs.
+- A description of the issue.
+
+Never share your API key or other secrets when submitting a support request.

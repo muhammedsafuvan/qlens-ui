@@ -1,0 +1,37 @@
+# Installation
+
+## Requirements
+
+QueueLens currently provides a Python SDK designed to integrate with Celery applications.
+
+Before installing, ensure your environment has:
+
+- A supported Python version.
+- Celery installed in your project.
+- Access to your Celery broker.
+- Network access to the QueueLens ingestion endpoint.
+
+## Install with Celery support
+
+```bash
+pip install "queuelens[celery]"
+```
+
+## Verify installation
+
+```bash
+pip show queuelens
+```
+
+## Using a virtual environment
+
+We recommend installing QueueLens inside your application's virtual environment.
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install "queuelens[celery]"
+```
+
+
+Once installed, continue with API key configuration and Celery instrumentation.

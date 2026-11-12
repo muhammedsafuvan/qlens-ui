@@ -1,0 +1,44 @@
+# Monitoring Jobs
+
+Once your Celery application is integrated, QueueLens provides a centralized view of your background jobs.
+
+## Job lifecycle
+
+QueueLens captures supported Celery lifecycle events:
+
+| Event | Description |
+|---|---|
+| Received | The worker received the task |
+| Started | Task execution started |
+| Succeeded | Task completed successfully |
+| Failed | Task execution failed |
+| Retried | Celery scheduled another attempt |
+
+## Job details
+
+Select a job from your dashboard to inspect its execution information.
+
+Depending on the captured event data, you can inspect:
+
+- Task ID.
+- Task name.
+- Current status.
+- Queue and routing information.
+- Exception type.
+- Exception message.
+- Traceback.
+- Event history.
+
+## Understanding job statuses
+
+**Pending:** The task has been submitted but has not started execution.
+
+**Started:** The worker is executing the task.
+
+**Succeeded:** The task completed successfully.
+
+**Failed:** The task raised an exception and failed.
+
+**Retried:** The task was scheduled for another execution attempt.
+
+The exact status shown depends on the lifecycle events received by QueueLens.

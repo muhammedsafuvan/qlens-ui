@@ -1,0 +1,37 @@
+# Frequently Asked Questions
+
+## Does QueueLens execute my Celery tasks?
+
+No. Your Celery workers continue to execute tasks. QueueLens only captures and monitors task lifecycle information.
+
+## Do I need to change my existing Celery tasks?
+
+No. You only need to instrument your existing Celery application.
+
+## Does QueueLens replace Redis or RabbitMQ?
+
+No. Your existing Celery broker remains unchanged.
+
+## Do I need to call QueueLens APIs manually?
+
+No. The QueueLens SDK handles event collection and delivery automatically.
+
+## Does QueueLens require a separate worker?
+
+No. QueueLens instrumentation runs inside your existing Celery worker processes.
+
+## Can I monitor failed and retried tasks?
+
+Yes. QueueLens captures supported failure and retry lifecycle events.
+
+## Is my API key safe?
+
+API keys should be stored in environment variables or secret managers. Never expose them in public repositories or frontend code.
+
+## What happens if event delivery fails?
+
+The SDK uses buffered and batched delivery. Events are removed from its in-memory buffer after successful delivery. Events not yet delivered may be lost if the customer worker terminates unexpectedly.
+
+## Can I revoke an API key?
+
+Yes. You can revoke API keys from your QueueLens dashboard. Revoked keys can no longer authenticate ingestion requests.

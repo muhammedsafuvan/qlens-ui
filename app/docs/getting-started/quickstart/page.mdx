@@ -1,0 +1,88 @@
+# Quickstart
+
+Get your first Celery application connected to QueueLens in a few minutes.
+
+## Prerequisites
+
+Before starting, make sure you have:
+
+- Python 3.12 or later.
+- An existing Celery application.
+- A running Celery worker.
+- A QueueLens account.
+
+## Step 1: Create your QueueLens account
+
+Visit the QueueLens dashboard and sign in using your Google account.
+
+After signing in, you will be taken to your workspace.
+
+## Step 2: Generate an API key
+
+1. Open your QueueLens dashboard.
+2. Navigate to API Keys.
+3. Click **Create API Key**.
+4. Give your key a recognizable name.
+5. Copy the generated API key.
+
+Keep your API key private. It is displayed only when created.
+
+## Step 3: Install the SDK
+
+Install QueueLens with Celery support:
+
+```bash
+pip install "queuelens[celery]"
+```
+
+## Step 4: Configure your API key
+
+Add the generated API key to your application's environment:
+
+```env
+QUEUELENS_API_KEY=ql_live_your_generated_key
+```
+
+Never commit your API key to source control.
+
+## Step 5: Instrument your Celery application
+
+Initialize QueueLens and instrument your existing Celery application:
+
+```python
+from celery import Celery
+from queuelens import QueueLens
+
+celery_app = Celery("my_app")
+
+queuelens = QueueLens()
+queuelens.instrument(celery_app)
+```
+
+Make sure instrumentation runs when your Celery application initializes.
+
+## Step 6: Start your worker
+
+Start your Celery worker as you normally would:
+
+```bash
+celery -A my_app worker --loglevel=info
+```
+
+## Step 7: Execute a task
+
+Run an existing Celery task:
+
+```python
+process_order.delay(123)
+```
+
+QueueLens automatically captures supported task lifecycle events.
+
+## Step 8: View your jobs
+
+Open the QueueLens dashboard and navigate to Jobs.
+
+You should be able to inspect your monitored tasks, their statuses, and available execution diagnostics.
+
+**Congratulations! Your Celery application is now connected to QueueLens.**

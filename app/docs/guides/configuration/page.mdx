@@ -1,0 +1,36 @@
+# Configuration
+
+QueueLens uses environment-based configuration to connect your Celery application to the monitoring platform.
+
+## API key
+
+```env
+QUEUELENS_API_KEY=ql_live_your_generated_key
+```
+
+This is the credential used by the SDK to authenticate event ingestion.
+
+## Environment configuration
+
+Configure the API key in your local `.env` file or deployment environment.
+
+For production, use a secure environment-variable or secret-management mechanism.
+
+## Configuration example
+
+```python
+import os
+
+from celery import Celery
+from queuelens import QueueLens
+
+celery_app = Celery("my_app")
+
+if os.getenv("QUEUELENS_API_KEY"):
+    queuelens = QueueLens()
+    queuelens.instrument(celery_app)
+```
+
+This example conditionally enables instrumentation when the API key is configured.
+
+Refer to the SDK's supported configuration options for additional settings as they become available.

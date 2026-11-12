@@ -1,9 +1,19 @@
+
 import type { NextConfig } from "next";
+import createMDX from "@next/mdx";
+
+const withMDX = createMDX({
+  extension: /\.mdx?$/,
+  options: {
+    remarkPlugins: [],
+    rehypePlugins: [],
+  },
+});
 
 const nextConfig: NextConfig = {
-  // Use standalone output for Docker, but let Netlify
-  // use its own Next.js runtime.
   ...(process.env.NETLIFY ? {} : { output: "standalone" }),
+
+  pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
 
   experimental: {
     agentFeedback: true,
@@ -22,4 +32,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default withMDX(nextConfig);
